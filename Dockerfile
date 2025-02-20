@@ -88,7 +88,13 @@ RUN echo "@main https://dl-cdn.alpinelinux.org/alpine/edge/main" | tee -a /etc/a
     addgroup -S stirlingpdfgroup && adduser -S stirlingpdfuser -G stirlingpdfgroup && \
     chown -R stirlingpdfuser:stirlingpdfgroup $HOME /scripts /usr/share/fonts/opentype/noto /configs /customFiles /pipeline && \
     chown stirlingpdfuser:stirlingpdfgroup /app.jar
-
+    
+# 创建容器内部的目录
+RUN mkdir -p /usr/share/tessdata \
+    && mkdir -p /configs \
+    && mkdir -p /customFiles \
+    && mkdir -p /logs \
+    && mkdir -p /pipeline
 EXPOSE 8080/tcp
 
 # Set user and run command
