@@ -121,7 +121,7 @@ exampleYmlFiles/stirling/
 *.tar.gz
 *.rar
 *.db
-/build
+# /build
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
