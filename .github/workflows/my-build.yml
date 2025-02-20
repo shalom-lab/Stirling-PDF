@@ -1,0 +1,33 @@
+name: Build and Commit
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Clean Previous Build
+        run: rm -rf build
+
+      - name: Run Gradle Build
+        run: ./gradlew build
+
+      - name: Commit and Push Build Directory
+        run: |
+          if [ -d "build" ]; then
+            git add build
+            git diff --quiet build || git commit -m "Update build directory" && git push origin HEAD
+          else
+            echo "Build directory does not exist. Skipping commit."
+          fi
